@@ -1,0 +1,31 @@
+<div id="nexmoe-header">
+    <div class="nexmoe-drawer mdui-drawer" id="drawer">
+        <div class="nexmoe-avatar mdui-ripple">
+            <a href="{{ "" | relURL }}" title="{{ .Site.Title }}">
+                <img src="{{ .Site.Params.avatar | default "avatar.png" | relURL }}" title="{{ .Site.Title }}" alt="{{ .Site.Title }}">
+            </a>
+        </div>
+        <div class="nexmoe-count">
+            <div>
+                <span>文章</span>
+                {{ $pages := where .Site.RegularPages ".Params.layout" "!=" "links" }}
+                {{ $pages := where $pages ".Params.layout" "!=" "archives" }}
+                {{ len $pages }}
+            </div>
+        </div>
+        {{ partial "nav.html" . }}
+        {{ partial "widgets.html" . }}
+        <div class="nexmoe-copyright">
+            {{ with .Site.Params.footer }}
+            {{ . | safeHTML }}
+            {{ else }}
+            © {{ now.Year }} <a href="{{ "" | relURL }}">{{ .Site.Title }}</a><br>
+            {{ range .Site.Params.footerFilings }}
+            <p>{{ if .url }}<a href="{{ .url }}" rel="noopener nofollow" target="_blank">{{ .text }}</a>{{ else }}{{ .text }}{{ end }}</p>
+            {{ end }}
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a><br>
+            Theme <a rel="friend" href="https://github.com/zhangzhuo0705/hugo-solo-nexmoe" target="_blank">Hugo Solo Nexmoe</a>
+            {{ end }}
+        </div>
+    </div>
+</div>

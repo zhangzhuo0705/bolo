@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body class="mdui-drawer-body-left mdui-loaded">
+    {{ partial "header.html" . }}
+    {{ partial "sidebar.html" . }}
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <main id="pjax" class="fn__flex-1">
+                {{ block "main" . }}{{ end }}
+            </main>
+            <div class="nexmoe-hitokoto">
+                <p id="hitokoto">{{ .Site.Params.hitokoto | default "生活不止眼前的代码，还有诗和远方。" }}</p>
+            </div>
+            <div class="back-to-top iconfont solo-gotop" onclick="window.scrollTo({top:0,behavior:'smooth'})"></div>
+        </div>
+    </div>
+    {{ partial "footer.html" . }}
+</body>
+</html>

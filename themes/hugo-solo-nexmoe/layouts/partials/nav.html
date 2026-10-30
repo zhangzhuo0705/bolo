@@ -1,0 +1,10 @@
+<div class="list-content">
+    <ul class="nexmoe-list mdui-list header__nav" mdui-collapse="{accordion: true}">
+        {{ range .Site.Menus.main }}
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple{{ if $.IsMenuCurrent "main" . }} active{{ end }}" href="{{ .URL }}" title="{{ .Name }}">
+            <i class="mdui-list-item-icon iconfont {{ .Params.icon | default "solo-home" }}"></i>
+            <div class="mdui-list-item-content">{{ .Name }}</div>
+        </a>
+        {{ end }}
+    </ul>
+</div>

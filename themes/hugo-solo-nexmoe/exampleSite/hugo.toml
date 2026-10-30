@@ -1,0 +1,76 @@
+baseURL = "https://zhangzhuo0705.github.io/hugo-solo-nexmoe/"
+locale = "zh-cn"
+title = "Hugo Solo Nexmoe 示例博客"
+theme = "hugo-solo-nexmoe"
+
+[params]
+  mainSections = ["posts"]
+  avatar = "https://zhangzhuo-1257627961.cos.ap-beijing.myqcloud.com/boke/boke4.jpg"
+  hitokoto = "生活不止眼前的代码，还有诗和远方。"
+  
+  [[params.social]]
+    name = "GitHub"
+    url = "https://github.com"
+    icon = "solo-github"
+  
+  [[params.links]]
+    name = "GitHub"
+    url = "https://github.com"
+    avatar = "https://github.githubassets.com/favicons/favicon.svg"
+  
+  [[params.links]]
+    name = "MDN Web Docs"
+    url = "https://developer.mozilla.org"
+    avatar = "https://developer.mozilla.org/favicon-48x48.png"
+  
+  [[params.links]]
+    name = "Stack Overflow"
+    url = "https://stackoverflow.com"
+    avatar = "https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png"
+
+[menu]
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1
+    [menu.main.params]
+      icon = "solo-home"
+  
+  [[menu.main]]
+    name = "友情链接"
+    url = "/links/"
+    weight = 2
+    [menu.main.params]
+      icon = "solo-about"
+  
+  [[menu.main]]
+    name = "标签"
+    url = "/tags/"
+    weight = 3
+    [menu.main.params]
+      icon = "solo-tags"
+  
+  [[menu.main]]
+    name = "时间线"
+    url = "/archives/"
+    weight = 4
+    [menu.main.params]
+      icon = "solo-list"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[pagination]
+  pagerSize = 10
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.80.0"

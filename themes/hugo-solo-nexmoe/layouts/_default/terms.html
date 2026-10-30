@@ -1,0 +1,10 @@
+{{ define "main" }}
+<article class="links nexmoe-py">
+    <h2>{{ .Title }}</h2>
+    <div class="nexmoe-widget tagcloud">
+        {{ range .Data.Terms.ByCount }}
+        <a rel="tag" title="标签:{{ .Page.Title }} - {{ site.Title }}" href="{{ .Page.Permalink }}" class="mdui-ripple">{{ .Page.Title }}</a>
+        {{ end }}
+    </div>
+</article>
+{{ end }}

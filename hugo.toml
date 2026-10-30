@@ -1,0 +1,76 @@
+baseURL = "https://www.zhangzhuo.ltd"
+locale = "zh-cn"
+title = "偷得浮生"
+theme = "hugo-solo-nexmoe"
+
+[params]
+  mainSections = ["posts"]
+  avatar = "https://zhangzhuo-1257627961.cos.ap-beijing.myqcloud.com/boke/boke4.jpg"
+  hitokoto = "生活不止眼前的代码，还有诗和远方。"
+
+  # 备案信息（可选，按顺序显示在版权行下方；不配置则不显示）
+  [[params.footerFilings]]
+    text = "蒙ICP备2020004404号-1"
+    url = "http://beian.miit.gov.cn/"
+
+  [[params.footerFilings]]
+    text = "蒙公网安备 15022102000024号"
+    url = "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15022102000024"
+  
+  [[params.social]]
+    name = "GitHub"
+    url = "https://github.com/zhangzhuo0705"
+    icon = "solo-github"
+  
+  [[params.links]]
+    name = "zhangzhuo"
+    url = "https://www.zhangzhuo.ltd"
+    avatar = "https://zhangzhuo-1257627961.cos.ap-beijing.myqcloud.com/boke/boke4.jpg"
+  
+
+[menu]
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1
+    [menu.main.params]
+      icon = "solo-home"
+  
+  [[menu.main]]
+    name = "友情链接"
+    url = "/links/"
+    weight = 2
+    [menu.main.params]
+      icon = "solo-about"
+  
+  [[menu.main]]
+    name = "标签"
+    url = "/tags/"
+    weight = 3
+    [menu.main.params]
+      icon = "solo-tags"
+  
+  [[menu.main]]
+    name = "时间线"
+    url = "/archives/"
+    weight = 4
+    [menu.main.params]
+      icon = "solo-list"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[pagination]
+  pagerSize = 10
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.80.0"

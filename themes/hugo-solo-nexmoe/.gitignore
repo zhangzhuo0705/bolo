@@ -1,0 +1,32 @@
+# Hugo
+public/
+resources/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# Node (if using build tools)
+node_modules/
+package-lock.json
+
+# ExampleSite build
+exampleSite/public/
+exampleSite/resources/
+
+# Local design previews
+.superpowers/

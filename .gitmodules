@@ -1,0 +1,3 @@
+[submodule "themes/hugo-solo-nexmoe"]
+	path = themes/hugo-solo-nexmoe
+	url = https://github.com/zhangzhuo0705/hugo-solo-nexmoe.git

@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="nexmoe-posts">
+    {{ range .Paginator.Pages }}
+    <div class="nexmoe-post">
+        <a href="{{ .Permalink }}" title="{{ .Title }}">
+            <div class="nexmoe-post-cover mdui-ripple">
+                {{ with .Params.cover }}
+                <img referrerpolicy="origin" src="{{ . | relURL }}" alt="{{ $.Title }}" class="lazyload index-img">
+                {{ else }}
+                <img referrerpolicy="origin" src="{{ "images/default-cover.jpg" | relURL }}" alt="{{ .Title }}" class="lazyload index-img">
+                {{ end }}
+                <h1>{{ .Title }}</h1>
+            </div>
+        </a>
+        <div class="nexmoe-post-meta">
+            <span><i class="nexmoefont iconfont solo-calendarl"></i>{{ .Date.Format "2006年01月02日" }}</span>
+            {{ with .Params.categories }}
+            {{ range first 1 . }}
+            <span><a class="nexmoefont" href="{{ (site.GetPage (printf "/categories/%s" .)).Permalink }}">{{ partial "icon-category.html" . }}{{ . }}</a></span>
+            {{ end }}
+            {{ end }}
+            {{ range .Params.tags }}
+            <span><a class="nexmoefont iconfont solo-tag" href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}">{{ . }}</a></span>
+            {{ end }}
+        </div>
+        <article>
+            <p class="summary">{{ with .Params.description }}{{ . | truncate 100 }}{{ else }}{{ .Summary | plainify | truncate 100 }}{{ end }}</p>
+        </article>
+    </div>
+    {{ end }}
+</section>
+{{ partial "pagination.html" . }}
+{{ end }}

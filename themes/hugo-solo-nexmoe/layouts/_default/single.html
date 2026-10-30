@@ -1,0 +1,139 @@
+{{ define "main" }}
+<style>
+.nexmoe-post-toc {
+    position: fixed;
+    right: -260px;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: rgba(255,255,255,0.95);
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+.nexmoe-post-toc.show {
+    right: 0;
+}
+.nexmoe-post-toc .toc-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ff4e6a;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nexmoe-post-toc .toc-close {
+    cursor: pointer;
+    font-size: 20px;
+    color: #999;
+}
+.nexmoe-post-toc .toc-close:hover {
+    color: #ff4e6a;
+}
+.nexmoe-post-toc nav {
+    font-size: 14px;
+}
+.nexmoe-post-toc nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.nexmoe-post-toc nav > ul > li {
+    margin: 10px 0;
+}
+.nexmoe-post-toc nav ul ul {
+    padding-left: 20px;
+    margin-top: 8px;
+}
+.nexmoe-post-toc nav ul ul ul {
+    padding-left: 40px;
+}
+.nexmoe-post-toc nav li {
+    line-height: 1.6;
+}
+.nexmoe-post-toc nav a {
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.nexmoe-post-toc nav a:hover {
+    color: #ff4e6a;
+    background: rgba(255,78,106,0.1);
+}
+.nexmoe-toc-toggle {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    width: 40px;
+    height: 40px;
+    background: #ff4e6a;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(255,78,106,0.3);
+}
+.nexmoe-toc-toggle:hover {
+    background: #ff6b7a;
+}
+</style>
+{{ if .Params.toc | default true }}
+{{ with .TableOfContents }}
+<div class="nexmoe-toc-toggle" onclick="toggleToc()">
+    <i class="iconfont solo-list"></i>
+</div>
+<aside class="nexmoe-post-toc" id="nexmoe-toc">
+    <div class="toc-title">
+        <span>目录</span>
+        <span class="toc-close" onclick="toggleToc()">×</span>
+    </div>
+    {{ . }}
+</aside>
+<script>
+function toggleToc() {
+    var toc = document.getElementById('nexmoe-toc');
+    toc.classList.toggle('show');
+}
+</script>
+{{ end }}
+{{ end }}
+<div class="nexmoe-post">
+    <div class="nexmoe-post-cover">
+        {{ with .Params.cover }}
+        <img referrerpolicy="origin" src="{{ . | relURL }}" alt="{{ $.Title }}" class="lazyload">
+        {{ else }}
+        <img referrerpolicy="origin" src="{{ "images/default-cover.jpg" | relURL }}" alt="{{ .Title }}" class="lazyload">
+        {{ end }}
+        <h1>{{ .Title }}</h1>
+    </div>
+    <div class="nexmoe-post-meta">
+        <span>
+            <i class="nexmoefont iconfont solo-calendarl"></i>{{ .Date.Format "2006-01-02" }}{{ with .Lastmod }}/{{ .Format "2006-01-02" }}{{ end }}
+        </span>
+        {{ with .Params.categories }}
+        {{ range first 1 . }}
+        <span>
+            {{ partial "icon-category.html" . }}{{ . }}
+        </span>
+        {{ end }}
+        {{ end }}
+        {{ range .Params.tags }}
+        <span><a class="nexmoefont iconfont solo-tag" href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}">{{ . }}</a></span>
+        {{ end }}
+    </div>
+    <article>
+        <div class="vditor-reset">
+            {{ .Content }}
+        </div>
+    </article>
+</div>
+{{ end }}

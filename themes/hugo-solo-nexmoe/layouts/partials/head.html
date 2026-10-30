@@ -1,0 +1,9 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+<link rel="stylesheet" href="{{ "css/base.css" | relURL }}"/>
+<link rel="stylesheet" href="{{ "css/mdui.min.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/font-icon.css" | relURL }}">
+{{ with .OutputFormats.Get "rss" -}}
+{{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}

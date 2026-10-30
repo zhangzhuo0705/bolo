@@ -1,0 +1,18 @@
+name = "Hugo Solo Nexmoe"
+license = "MIT"
+licenselink = "https://github.com/zhangzhuo0705/hugo-solo-nexmoe/blob/main/LICENSE"
+description = "A clean and responsive Hugo blog theme converted from solo-nexmoe, featuring MDUI framework and canvas background animation"
+homepage = "https://github.com/zhangzhuo0705/hugo-solo-nexmoe"
+demosite = "https://zhangzhuo0705.github.io/hugo-solo-nexmoe/"
+tags = ["blog", "responsive", "mdui", "nexmoe", "minimal", "chinese"]
+features = ["blog", "archives", "tags", "categories", "social-links", "friend-links", "toc", "pagination", "canvas-animation"]
+min_version = "0.128.0"
+
+[author]
+  name = "zhangzhuo0705"
+  homepage = "https://github.com/zhangzhuo0705"
+
+[original]
+  author = "nexmoe"
+  homepage = "https://nexmoe.com"
+  repo = "https://github.com/nexmoe/hugo-theme-nexmoe"
