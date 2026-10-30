@@ -15,10 +15,14 @@ RUN hugo --gc --minify --cleanDestinationDir
 # ---------- runtime ----------
 FROM nginx:1.30-alpine
 
-COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+COPY deploy/nginx/blog.conf /etc/nginx/snippets/blog.conf
+COPY deploy/nginx/templates/ /etc/nginx/blog-templates/
+COPY deploy/entrypoint.d/10-ssl.sh /docker-entrypoint.d/10-ssl.sh
+RUN chmod +x /docker-entrypoint.d/10-ssl.sh
+
 COPY --from=build /src/public/ /usr/share/nginx/html/
 
-EXPOSE 80
+EXPOSE 80 443
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget -q --spider http://127.0.0.1/ || exit 1
+  CMD wget -q --spider http://127.0.0.1/healthz || exit 1

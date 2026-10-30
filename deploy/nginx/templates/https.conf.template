@@ -1,0 +1,38 @@
+# HTTP：仅保留健康检查与 ACME 验证，其余跳转 HTTPS
+server {
+    listen      80 default_server;
+    listen [::]:80 default_server;
+    server_name ${SERVER_NAME};
+
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen      443 ssl default_server;
+    listen [::]:443 ssl default_server;
+    http2       on;
+    server_name ${SERVER_NAME};
+
+    ssl_certificate     ${SSL_CERT_PATH};
+    ssl_certificate_key ${SSL_KEY_PATH};
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
+
+    add_header Strict-Transport-Security "max-age=31536000" always;
+
+    include /etc/nginx/snippets/blog.conf;
+}

@@ -79,7 +79,8 @@ hugo --cleanDestinationDir --gc --minify
 仓库内提供了完整的镜像构建与推送配置：
 
 - `Dockerfile`：多阶段构建，Hugo 生成静态文件后由 Nginx 提供服务
-- `deploy/nginx.conf`：Nginx 站点配置（gzip、静态资源缓存、404 页面）
+- `deploy/nginx/`：站点配置模板，容器启动时按证书与环境变量生成 HTTP 或 HTTPS 配置
+- `deploy/entrypoint.d/10-ssl.sh`：启动时选择模板并渲染 `/etc/nginx/conf.d/default.conf`
 - `.github/workflows/docker-publish.yml`：任意分支的代码提交或 `v*` 标签推送时立即构建并推送镜像
 
 镜像地址：
@@ -102,6 +103,34 @@ docker build -t registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest .
 docker run --rm -p 8080:80 registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest
 docker push registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest
 ```
+
+### HTTPS 部署
+
+配置不写死在镜像里。默认 HTTP 模式；把证书挂载到 `/etc/nginx/certs/` 后自动切换为 HTTPS：
+
+```bash
+docker run -d --name bolo \
+  -p 80:80 -p 443:443 \
+  -v /path/to/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro \
+  -v /path/to/privkey.pem:/etc/nginx/certs/privkey.pem:ro \
+  -e SERVER_NAME=www.zhangzhuo.ltd \
+  registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest
+```
+
+可用环境变量：
+
+| 变量 | 默认值 | 说明 |
+| --- | --- | --- |
+| `SSL_ENABLED` | `auto` | `auto` 检测到证书即启用；`true` 强制启用（缺证书启动失败）；`false` 仅 HTTP |
+| `SSL_CERT_PATH` | `/etc/nginx/certs/fullchain.pem` | 证书链路径 |
+| `SSL_KEY_PATH` | `/etc/nginx/certs/privkey.pem` | 私钥路径 |
+| `SERVER_NAME` | `_` | Nginx `server_name` |
+
+HTTPS 模式下：
+
+- 80 端口仅保留 `/healthz` 与 `/.well-known/acme-challenge/`，其余 301 跳转 HTTPS
+- 启用 TLS 1.2/1.3、HTTP/2、HSTS（1 年）
+- 证书续期后执行 `docker exec bolo nginx -s reload` 即可生效，无需重建镜像
 
 Docker 构建需要主题子模块已检出，CI 中已通过 `submodules: recursive` 处理。
 
