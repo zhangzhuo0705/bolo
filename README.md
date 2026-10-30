@@ -74,6 +74,37 @@ hugo --cleanDestinationDir --gc --minify
 
 `public/`、`resources/` 和 `.hugo_build.lock` 已加入 `.gitignore`，不需要提交。
 
+## 容器化与 CI
+
+仓库内提供了完整的镜像构建与推送配置：
+
+- `Dockerfile`：多阶段构建，Hugo 生成静态文件后由 Nginx 提供服务
+- `deploy/nginx.conf`：Nginx 站点配置（gzip、静态资源缓存、404 页面）
+- `.github/workflows/docker-publish.yml`：任意分支的代码提交或 `v*` 标签推送时立即构建并推送镜像
+
+镜像地址：
+
+```text
+registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo
+```
+
+CI 推送需要在仓库 Secrets 中配置：
+
+| Secret | 说明 |
+| --- | --- |
+| `REGISTRY_USER` | 阿里云容器镜像服务用户名 |
+| `REGISTRY_PWD` | 容器镜像服务固定密码（不是阿里云登录密码） |
+
+本地构建、运行与推送：
+
+```bash
+docker build -t registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest .
+docker run --rm -p 8080:80 registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest
+docker push registry.cn-hangzhou.aliyuncs.com/zz-boke/bolo:latest
+```
+
+Docker 构建需要主题子模块已检出，CI 中已通过 `submodules: recursive` 处理。
+
 ## 配置
 
 站点配置在 `hugo.toml`，主题参数说明见：

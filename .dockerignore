@@ -1,0 +1,11 @@
+.git
+.gitmodules
+.github
+.vscode
+.idea
+public
+resources
+.hugo_build.lock
+node_modules
+*.log
+README.md
