@@ -21,6 +21,11 @@ theme = "hugo-solo-nexmoe"
     name = "GitHub"
     url = "https://github.com/zhangzhuo0705"
     icon = "solo-github"
+
+  [[params.social]]
+    name = "微信"
+    value = "18586178046"
+    icon = "solo-wechat"
   
   [[params.links]]
     name = "zhangzhuo"
