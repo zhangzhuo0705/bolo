@@ -78,4 +78,4 @@ theme = "hugo-solo-nexmoe"
 [module]
   [module.hugoVersion]
     extended = false
-    min = "0.80.0"
+    min = "0.128.0"

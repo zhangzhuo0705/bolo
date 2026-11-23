@@ -21,6 +21,7 @@
 - 友情链接和社交按钮
 - 首页及列表分页
 - 图片懒加载和默认封面
+- Mermaid 流程图等图表（使用 `mermaid` 代码块）
 - 支持域名根路径和项目子路径部署
 
 ## 环境要求
@@ -202,6 +203,19 @@ theme = "hugo-solo-nexmoe"
 - `pagination.pagerSize`：列表页每页文章数。
 - `markup.tableOfContents`：浮动目录的标题级别范围；文章可用 `toc: false` 单独关闭。
 - `params.footer`、`params.footerFilings` 等可选页脚配置见下方“配置参考”。
+
+## Mermaid 图表
+
+在文章中使用 `mermaid` 围栏代码块，主题会在包含图表的页面加载 Mermaid 并将其绘制为图形：
+
+````markdown
+```mermaid
+flowchart TB
+  A[开始] --> B[结束]
+```
+````
+
+图表脚本从 jsDelivr 加载，浏览器需要能够访问该 CDN；普通代码块仍由 Hugo 处理。
 
 ## 特殊页面
 

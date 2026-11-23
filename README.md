@@ -161,10 +161,19 @@ themes/hugo-solo-nexmoe/README.md
 https://github.com/zhangzhuo0705/hugo-solo-nexmoe
 ```
 
-更新子模块：
+首次检出或恢复当前仓库锁定的主题版本：
 
 ```bash
 git submodule update --init --recursive
+```
+
+更新到主题仓库 `main` 分支的最新版本：
+
+```bash
+git submodule update --init --remote themes/hugo-solo-nexmoe
+hugo --gc --minify
+git add themes/hugo-solo-nexmoe
+git commit -m "更新博客主题"
 ```
 
 提交主题相关改动时，需要先在 `themes/hugo-solo-nexmoe` 内提交并推送，再在主仓库提交子模块指针。

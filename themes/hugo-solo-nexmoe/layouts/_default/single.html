@@ -85,6 +85,14 @@
 .nexmoe-toc-toggle:hover {
     background: #ff6b7a;
 }
+.nexmoe-post .mermaid {
+    overflow-x: auto;
+    text-align: center;
+}
+.nexmoe-post .mermaid svg {
+    width: 100%;
+    height: auto;
+}
 </style>
 {{ if .Params.toc | default true }}
 {{ with .TableOfContents }}
